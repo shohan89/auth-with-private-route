@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 
 const Login = () => {
     return (
@@ -13,7 +14,7 @@ const Login = () => {
                     <div><a className="link link-hover">Forgot password?</a></div>
                     <button className="btn btn-primary mt-4">Login</button>
                 </fieldset>
-                <p>Don't have account? </p>
+                <p>Don't have account? Please <span><Link className="text-primary" to='/register'>Register</Link></span></p>
             </div>
         </div>
     );
