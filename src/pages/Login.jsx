@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
-    const {signInUser, loading} = useContext(AuthContext); // get signInUser from context
+    const {signInUser} = useContext(AuthContext); // get signInUser from context
     const navigate = useNavigate();
     const handleLogin = e => {
         e.preventDefault(); //? to prevent page reload
