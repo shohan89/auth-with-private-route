@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
+    const {createUser} = useContext(AuthContext);
     const handleRegister = e => {
         e.preventDefault(); //? to prevent page reload
         const form = e.target;
@@ -8,6 +11,18 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(name, email, password);
+
+        // create user
+        createUser(email, password)
+            .then(result => {
+                const registeredUser = result.user;
+                console.log("🚀 ~ handleRegister ~ registeredUser:", registeredUser)
+                form.reset(); //? reset the form after submission
+                
+            })
+            .catch(error => {
+                console.error(error);
+            })
     }
     return (
         <div className="container w-96 mx-auto p-4">
