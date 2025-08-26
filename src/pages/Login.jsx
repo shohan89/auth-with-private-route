@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
-    const {signInUser} = useContext(AuthContext); // get signInUser from context
+    const {signInUser, signInWithGoogle} = useContext(AuthContext); // get signInUser from context
     const navigate = useNavigate();
     const handleLogin = e => {
         e.preventDefault(); //? to prevent page reload
@@ -24,6 +24,20 @@ const Login = () => {
                 console.error(error);
             })
     }
+
+    // sign in with google
+    const handleGoogleLogin = () => {
+        signInWithGoogle()
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log("🚀 ~ handleGoogleLogin ~ loggedInUser:", loggedInUser)
+                navigate('/'); //? redirect to home page after login
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
     return (
         <div className="container w-96 mx-auto p-4">
             <h2 className="text-2xl font-bold text-center mb-4">Login Now!</h2>
@@ -37,6 +51,7 @@ const Login = () => {
                     <div><a className="link link-hover">Forgot password?</a></div>
                     <button className="btn btn-primary mt-4">Login</button>
                 </fieldset>
+                <button onClick={handleGoogleLogin} className="btn btn-primary mb-4 w-full">Login With Google</button>
                 <p>Don't have account? Please <span><Link className="text-primary" to='/register'>Register</Link></span></p>
             </form>
         </div>
