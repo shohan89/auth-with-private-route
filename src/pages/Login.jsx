@@ -1,12 +1,26 @@
+import { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+    const {signInUser} = useContext(AuthContext); // get signInUser from context
     const handleLogin = e => {
         e.preventDefault(); //? to prevent page reload
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+
+        // sign in user
+        signInUser(email, password)
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log("🚀 ~ handleLogin ~ loggedInUser:", loggedInUser);
+                form.reset(); //? reset the form after submission
+            })
+            .catch(error => {
+                console.error(error);
+            })
     }
     return (
         <div className="container w-96 mx-auto p-4">
