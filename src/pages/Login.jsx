@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
-    const {signInUser} = useContext(AuthContext); // get signInUser from context
+    const {signInUser, loading} = useContext(AuthContext); // get signInUser from context
+    const navigate = useNavigate();
     const handleLogin = e => {
         e.preventDefault(); //? to prevent page reload
         const form = e.target;
@@ -17,6 +18,7 @@ const Login = () => {
                 const loggedInUser = result.user;
                 console.log("🚀 ~ handleLogin ~ loggedInUser:", loggedInUser);
                 form.reset(); //? reset the form after submission
+                navigate('/'); //? redirect to home page after login
             })
             .catch(error => {
                 console.error(error);
